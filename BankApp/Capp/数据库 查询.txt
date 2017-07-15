@@ -1,0 +1,62 @@
+数据库 查询语句：
+
+查询单个用户信息：
+
+查询单个账户信息：
+    select c_idcard,c_name,c_tel,Client.acc_no,acc_passwd,acc_balance,acc_open_date,acc_credit,acc_status from Client,Account where Client.acc_no=Account.acc_no and Client.acc_no='114001';
+
+
+查银行卡：
+elect card_name,card_no,card_balance,card_open_date,card_credit,card_status from Card where  acc_no='1';
+
+
+添加账户：
+    insert into Account values('114003','1234',1234,now(),1,1,'1');
+
+添加用户：
+    insert into Client values('114004','123','yn',12333,23);
+
+
+删除用户：
+insert into DestoryAcc(acc_no,des_balance,des_date,des_operator) values(1,2,now(),'tom');
+
+
+查找管理员信息：
+    select a_name,a_date from Admin where a_no=114001;
+
+查询某个账户的所有信用卡：
+    select * from Account where acc_no='114001';
+
+添加信用卡：
+    insert into Card values('114114004','123','114001',1234,now(),1,1,'yn',23);
+
+删除信用卡：
+    delete from Card where card_no='114114001';
+
+Savetype:
+
+    活期：current
+    定期：regular
+
+添加一个存款类型：
+    insert into SaveType(save_type,time_limit,rate) values('regular',24,0.0252),('regular',,36,0.0315);
+
+用户操作：
+    存款：
+            insert into SaveMoney(save_money,card_no,save_style,save_date,save_operator) values(1000,'114114004',2,now(),'yn');
+
+    取款：
+            insert into DrawMoney(draw_money,card_no,draw_date,draw_operator) values(1000,'114114004',now(),'tom');
+
+    转账：
+            insertintoTransMoneytransin_card_no,transout_card_no,trans_money,trans_date,trans_operatorvalues(114005,114007,100,now(),'aaa);
+
+    销卡：
+        delete from Card where acc_no='114114004';
+
+冻结账户：
+    update Account set acc_status=0 where acc_no=1;
+
+
+
+
