@@ -111,6 +111,12 @@ void CCappDlg::OnBnClickedOk()
 
 	int nRet=0;
 	theApp.sock.Receive(&nRet, sizeof(nRet));
+	switch (nRet)
+	{
+
+	default:
+		break;
+	}
 	if (nRet == PASSWD_ERROR)
 	{
 		MessageBox(L"账号与密码不匹配", L"温馨提示", MB_OK);
