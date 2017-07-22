@@ -1,7 +1,7 @@
 #pragma once
-
+#define USER_TYPE_SIZE 4
 #define SQL_BUF 512
-
+#define REQ_SIZE 2
 #define PORT 9000
 
 enum ACCOUNT_STATE

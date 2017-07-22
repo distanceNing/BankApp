@@ -48,7 +48,7 @@ BOOL CCappDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	theApp.sock.CreatSocket();
-	int flag = theApp.sock.Connect("192.168.44.128", PORT);//10.100.7.202 
+	int flag = theApp.sock.Connect("192.168.0.110", PORT);//10.100.7.202 
 	if (flag == 0)
 	{
 		MessageBox(L"服务器连接失败", L"温馨提示", MB_OK);
@@ -90,10 +90,12 @@ HCURSOR CCappDlg::OnQueryDragIcon()
 
 void CCappDlg::OnBnClickedOk()
 {
-	int user_type = CLIENT;
-	theApp.sock.Send(&user_type, sizeof(int));
+	char user_type[USER_TYPE_SIZE];
+	snprintf(user_type, USER_TYPE_SIZE, "%d", CLIENT);
+	theApp.sock.Send(user_type, USER_TYPE_SIZE);
 	int ntype = REQ_LOGIN;
 	theApp.sock.Send(&ntype, sizeof(int));
+
 	CString testName, testPassword;
 	char  temp[32];
 	GetDlgItemText(IDC_USERID, testName);
@@ -113,33 +115,34 @@ void CCappDlg::OnBnClickedOk()
 	theApp.sock.Receive(&nRet, sizeof(nRet));
 	switch (nRet)
 	{
-
+	case PASSWD_ERROR:
+		{
+			MessageBox(L"账号与密码不匹配", L"温馨提示", MB_OK);
+			break;
+		}
+	case ALREADY_ONLINE:
+		{
+			MessageBox(L"账户已在线", L"温馨提示", MB_OK);
+			break;
+		}
+	case NO_THIS_USER:
+		{
+			MessageBox(L"此账户不存在", L"温馨提示", MB_OK);
+			break;
+		}
+	case CHECK_SUCCESS:
+		{
+			memset(theApp.id, '\0', 16);
+			strcpy(theApp.id, login.id);
+			EndDialog(0);
+			CDlgClient dlg;
+			dlg.DoModal();
+			break;
+		}
 	default:
 		break;
 	}
-	if (nRet == PASSWD_ERROR)
-	{
-		MessageBox(L"账号与密码不匹配", L"温馨提示", MB_OK);
-		return;
-	}
-	if (nRet == ALREADY_ONLINE)
-	{
-		MessageBox(L"账户已在线", L"温馨提示", MB_OK);
-		return;
-	}
-	if(nRet==NO_THIS_USER)
-	{
-		MessageBox(L"此账户不存在", L"温馨提示", MB_OK);
-		return;
-	}
-	if (nRet == CHECK_SUCCESS)
-	{
-		memset(theApp.id, '\0',16);
-		strcpy(theApp.id, login.id);
-		EndDialog(0);
-		CDlgClient dlg;
-		dlg.DoModal();
-	}
+	
 	
 }
 
@@ -149,8 +152,11 @@ void CCappDlg::OnBnClickedCancel()
 	int flag = MessageBox(L"您确定要退出吗？", L"温馨提示", MB_OKCANCEL);
 	if (flag == 1)
 	{
+	
 		int ntype = REQ_EXIT;
-		theApp.sock.Send(&ntype, sizeof(ntype));
+		char type[REQ_SIZE] = { 0 };
+		snprintf(type, REQ_SIZE, "%d", ntype);
+		theApp.sock.Send(type, REQ_SIZE);
 		EndDialog(1);
 	}
 }

@@ -206,9 +206,6 @@ bool PageRecord::OnWhd()
 		size = ::MultiByteToWideChar(CP_ACP, 0, (const char *)card_info.date, strlen(card_info.date), buffer, 64);
 		buffer[size] = '\0';
 		recordList.SetItemText(i, 3, buffer);
-
-
-
 	}
 
 	return false;
