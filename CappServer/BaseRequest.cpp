@@ -1,4 +1,19 @@
 #include "BaseRequest.h"
+
+
+
+
+void OnMessage(BaseRequest * user_request)
+{
+	if(!user_request->LoadingDataBase())
+	{
+		std::cout<<"Loading Database Error"<<std::endl;
+		return;
+	}
+	user_request->OnReceive();
+}
+
+
 bool BaseRequest::LoadingDataBase()
 {
 	if(!mysql_conn.InitMySQL())
@@ -70,7 +85,7 @@ bool BaseRequest::SearchCardInfo(const char* id, CARD_INFO *user_info)
 
 
 LOGIN_ERROR BaseRequest::VerifyInfo(bool isClient,LOGIN_INFO & login_info)
-{	
+{
 	char sql[SQL_BUF];
 	memset(sql,0,SQL_BUF*sizeof(char));
 	if(isClient)
@@ -139,7 +154,7 @@ bool BaseRequest::SearchRecordInfo(const char* id,int type,struct TRCODE_INFO * 
 		snprintf(sql,SQL_BUF,"select card_no,save_operator,save_money,save_date from SaveMoney where save_no='%s'",id);
 		break;
 	case REQ_WHD_RECORD:
-		snprintf(sql,SQL_BUF,"select draw_no,draw_operator,draw_money,draw_date from DrawMoney where draw_no='%s'",id);
+		snprintf(sql,SQL_BUF,"select card_no,draw_operator,draw_money,draw_date from DrawMoney where draw_no='%s'",id);
 		break;
 	case REQ_TRANS_RECORD:
 		snprintf(sql,SQL_BUF,"select transout_card_no,trans_operator,trans_money,trans_date from TransMoney where trans_no='%s'",id);
@@ -169,7 +184,7 @@ bool BaseRequest::OnLine(const char* id)
 	snprintf(sql,SQL_BUF,"insert into LoginStatus values(%s)",id);
 	if(SQLOperate(sql))
 		return true;
-}	
+}
 bool BaseRequest::OffLine(const char* id)
 {
 	if(*id=='\0')

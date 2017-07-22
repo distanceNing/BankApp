@@ -1,8 +1,10 @@
 #pragma once
-
+#define USER_TYPE_SIZE 4
 #define SQL_BUF 512
-
+#define REQ_SIZE 2
 #define PORT 9000
+
+typedef void* (*ProccessFun)(void* );
 
 enum ACCOUNT_STATE
 {

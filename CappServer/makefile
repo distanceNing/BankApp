@@ -1,6 +1,6 @@
 obj= AdmainRequest.o ClientRequest.o BaseRequest.o Csocket.o MainLoop.cpp mysql_data.o mysql_cpp.o main.o
 demo:$(obj)
-	g++ $(obj) -I/usr/include/mysql -L/usr/lib/mysql -lmysqlclient -o demo
+	g++ $(obj) -I/usr/include/mysql -L/usr/lib/mysql -lpthread -lmysqlclient -o demo
 main.o:MainLoop.h main.cpp
 	g++ -c -I/usr/include/mysql main.cpp 
 mysql_data.o:mysql_data.h mysql_data.cpp

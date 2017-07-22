@@ -39,7 +39,7 @@ public:
 	int ReceiveFrom(void *buffer, int buflen, char* fromIP, UINT &fromPort);
 	bool Listen(int backlog=5);
 	bool Accept(Csocket &socka, char* fromIP, UINT  &fromPort);
-	bool Send(void* message, int buflen);
+	size_t Send(void* message, int buflen);
 	bool GetPeerName(char* peerIP, UINT &peerPort);
 	bool Connect(char* conIP, UINT &conPort);
 	bool CloseSocket();

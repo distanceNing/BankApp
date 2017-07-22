@@ -7,7 +7,7 @@
 ACCOUNT_STATE	define.h	/^enum ACCOUNT_STATE$/;"	g
 ACCOUNT_STATE_AVAILABLE	define.h	/^	ACCOUNT_STATE_AVAILABLE = 1,$/;"	e	enum:ACCOUNT_STATE
 ACCOUNT_STATE_UNAVAILABLE	define.h	/^	ACCOUNT_STATE_UNAVAILABLE = 0$/;"	e	enum:ACCOUNT_STATE
-ADMAIN	define.h	/^	ADMAIN=1,$/;"	e	enum:USER_TYPE
+ADMAIN	define.h	/^	ADMAIN = 1,$/;"	e	enum:USER_TYPE
 ADMIN_INFO	define.h	/^struct ADMIN_INFO$/;"	s
 ADMIN_INFO::date	define.h	/^	char date[32];$/;"	m	struct:ADMIN_INFO	access:public
 ADMIN_INFO::name	define.h	/^	char name[32];$/;"	m	struct:ADMIN_INFO	access:public
@@ -79,22 +79,18 @@ BaseRequest::QuerySignalInfo	BaseRequest.cpp	/^bool BaseRequest::QuerySignalInfo
 BaseRequest::QuerySignalInfo	BaseRequest.h	/^	bool QuerySignalInfo(const char* id,struct CLIENT_INFO * user_info);$/;"	p	class:BaseRequest	access:public	signature:(const char* id,struct CLIENT_INFO * user_info)
 BaseRequest::SQLOperate	BaseRequest.cpp	/^bool BaseRequest::SQLOperate(const char* sql)$/;"	f	class:BaseRequest	signature:(const char* sql)
 BaseRequest::SQLOperate	BaseRequest.h	/^	bool SQLOperate(const char* sql);$/;"	p	class:BaseRequest	access:public	signature:(const char* sql)
-BaseRequest::SearchCardInfo	BaseRequest.cpp	/^bool BaseRequest::SearchCardInfo(const char* id,struct CARD_INFO *user_info)$/;"	f	class:BaseRequest	signature:(const char* id,struct CARD_INFO *user_info)
-BaseRequest::SearchCardInfo	BaseRequest.h	/^	bool SearchCardInfo(const char * id,struct CARD_INFO * card_info);$/;"	p	class:BaseRequest	access:public	signature:(const char * id,struct CARD_INFO * card_info)
+BaseRequest::SearchCardInfo	BaseRequest.cpp	/^bool BaseRequest::SearchCardInfo(const char* id, CARD_INFO *user_info)$/;"	f	class:BaseRequest	signature:(const char* id, CARD_INFO *user_info)
+BaseRequest::SearchCardInfo	BaseRequest.h	/^	bool SearchCardInfo(const char * id, CARD_INFO * card_info);$/;"	p	class:BaseRequest	access:public	signature:(const char * id, CARD_INFO * card_info)
 BaseRequest::SearchRecordInfo	BaseRequest.cpp	/^bool BaseRequest::SearchRecordInfo(const char* id,int type,struct TRCODE_INFO * user_info)$/;"	f	class:BaseRequest	signature:(const char* id,int type,struct TRCODE_INFO * user_info)
 BaseRequest::SearchRecordInfo	BaseRequest.h	/^	bool SearchRecordInfo(const char* id,int type,struct TRCODE_INFO  * info);$/;"	p	class:BaseRequest	access:public	signature:(const char* id,int type,struct TRCODE_INFO * info)
 BaseRequest::SetUserID	BaseRequest.h	/^	void SetUserID(const char* id){$/;"	f	class:BaseRequest	access:public	signature:(const char* id)
 BaseRequest::VerifyInfo	BaseRequest.cpp	/^LOGIN_ERROR BaseRequest::VerifyInfo(bool isClient,LOGIN_INFO & login_info)$/;"	f	class:BaseRequest	signature:(bool isClient,LOGIN_INFO & login_info)
 BaseRequest::VerifyInfo	BaseRequest.h	/^	LOGIN_ERROR VerifyInfo(bool isClient,struct LOGIN_INFO &login_info);$/;"	p	class:BaseRequest	access:public	signature:(bool isClient,struct LOGIN_INFO &login_info)
+BaseRequest::isUser	BaseRequest.cpp	/^bool BaseRequest::isUser(bool isClient,const char* id)$/;"	f	class:BaseRequest	signature:(bool isClient,const char* id)
+BaseRequest::isUser	BaseRequest.h	/^	bool isUser(bool isClient,const char* id);$/;"	p	class:BaseRequest	access:public	signature:(bool isClient,const char* id)
 BaseRequest::mysql_conn	BaseRequest.h	/^	MySQL mysql_conn;$/;"	m	class:BaseRequest	access:private
-CARD_INFO	define.h	/^struct CARD_INFO$/;"	s
-CARD_INFO::credit	define.h	/^	char credit[4];$/;"	m	struct:CARD_INFO	access:public
-CARD_INFO::date	define.h	/^	char date[32];$/;"	m	struct:CARD_INFO	access:public
-CARD_INFO::id	define.h	/^	char id[16];$/;"	m	struct:CARD_INFO	access:public
-CARD_INFO::money	define.h	/^	char money[20];$/;"	m	struct:CARD_INFO	access:public
-CARD_INFO::name	define.h	/^	char name[32];$/;"	m	struct:CARD_INFO	access:public
-CARD_INFO::status	define.h	/^	char status[4];$/;"	m	struct:CARD_INFO	access:public
-CHECK_SUCCESS	define.h	/^	CHECK_SUCCESS=1001,$/;"	e	enum:LOGIN_ERROR
+CARD_INFO	define.h	/^typedef CLIENT_INFO CARD_INFO;$/;"	t
+CHECK_SUCCESS	define.h	/^	CHECK_SUCCESS = 1001,$/;"	e	enum:LOGIN_ERROR
 CLIENT	define.h	/^	CLIENT$/;"	e	enum:USER_TYPE
 CLIENT_INFO	define.h	/^struct CLIENT_INFO$/;"	s
 CLIENT_INFO::credit	define.h	/^	char credit[4];$/;"	m	struct:CLIENT_INFO	access:public
@@ -102,7 +98,6 @@ CLIENT_INFO::date	define.h	/^	char date[32];$/;"	m	struct:CLIENT_INFO	access:pub
 CLIENT_INFO::id	define.h	/^	char id[16];$/;"	m	struct:CLIENT_INFO	access:public
 CLIENT_INFO::money	define.h	/^	char money[20];$/;"	m	struct:CLIENT_INFO	access:public
 CLIENT_INFO::name	define.h	/^	char name[32];$/;"	m	struct:CLIENT_INFO	access:public
-CLIENT_INFO::pass	define.h	/^	char pass[16];$/;"	m	struct:CLIENT_INFO	access:public
 CLIENT_INFO::status	define.h	/^	char status[4];$/;"	m	struct:CLIENT_INFO	access:public
 ClientRequest	ClientRequest.h	/^	ClientRequest(Csocket* user_sock, char* id=NULL) :BaseRequest(id),sock(user_sock) {}$/;"	f	class:ClientRequest	access:public	signature:(Csocket* user_sock, char* id=NULL)
 ClientRequest	ClientRequest.h	/^class ClientRequest$/;"	c	inherits:BaseRequest
@@ -169,14 +164,13 @@ Csocket::Receive	Csocket.cpp	/^int Csocket::Receive(void *buffer,int buflen)$/;"
 Csocket::Receive	Csocket.h	/^	int Receive(void *buffer, int buflen);$/;"	p	class:Csocket	access:public	signature:(void *buffer, int buflen)
 Csocket::ReceiveFrom	Csocket.cpp	/^int Csocket::ReceiveFrom(void *buffer, int buflen, char* fromIP,UINT &fromPort)$/;"	f	class:Csocket	signature:(void *buffer, int buflen, char* fromIP,UINT &fromPort)
 Csocket::ReceiveFrom	Csocket.h	/^	int ReceiveFrom(void *buffer, int buflen, char* fromIP, UINT &fromPort);$/;"	p	class:Csocket	access:public	signature:(void *buffer, int buflen, char* fromIP, UINT &fromPort)
-Csocket::Send	Csocket.cpp	/^bool Csocket::Send(void* message, int buflen)$/;"	f	class:Csocket	signature:(void* message, int buflen)
-Csocket::Send	Csocket.h	/^	bool Send(void* message, int buflen);$/;"	p	class:Csocket	access:public	signature:(void* message, int buflen)
+Csocket::Send	Csocket.cpp	/^size_t Csocket::Send(void* message, int buflen)$/;"	f	class:Csocket	signature:(void* message, int buflen)
+Csocket::Send	Csocket.h	/^	size_t Send(void* message, int buflen);$/;"	p	class:Csocket	access:public	signature:(void* message, int buflen)
 Csocket::Sendto	Csocket.cpp	/^bool Csocket::Sendto(const void *message, const char* toIP, const UINT &toPort)$/;"	f	class:Csocket	signature:(const void *message, const char* toIP, const UINT &toPort)
 Csocket::Sendto	Csocket.h	/^	bool Sendto(const void *message,const char* toIP,const UINT &toPort);$/;"	p	class:Csocket	access:public	signature:(const void *message,const char* toIP,const UINT &toPort)
 Csocket::sock	Csocket.h	/^	SOCKET sock;$/;"	m	class:Csocket	access:private
 Csocket::~Csocket	Csocket.cpp	/^Csocket::~Csocket()$/;"	f	class:Csocket	signature:()
 Csocket::~Csocket	Csocket.h	/^	~Csocket();$/;"	p	class:Csocket	access:public	signature:()
-DEL	define.h	/^	DEL,$/;"	e	enum:OPERATE_TYPE
 DestoryAccount	BaseRequest.cpp	/^bool BaseRequest::DestoryAccount(const char* id)$/;"	f	class:BaseRequest	signature:(const char* id)
 DestoryAccount	BaseRequest.h	/^	bool DestoryAccount(const char* id);$/;"	p	class:BaseRequest	access:public	signature:(const char* id)
 DestoryCard	BaseRequest.cpp	/^bool BaseRequest::DestoryCard(const char* id)$/;"	f	class:BaseRequest	signature:(const char* id)
@@ -206,18 +200,22 @@ Listen	Csocket.cpp	/^bool Csocket::Listen(int backlog)$/;"	f	class:Csocket	signa
 Listen	Csocket.h	/^	bool Listen(int backlog=5);$/;"	p	class:Csocket	access:public	signature:(int backlog=5)
 LoadingDataBase	BaseRequest.cpp	/^bool BaseRequest::LoadingDataBase()$/;"	f	class:BaseRequest	signature:()
 LoadingDataBase	BaseRequest.h	/^	bool LoadingDataBase();$/;"	p	class:BaseRequest	access:public	signature:()
-MOD	define.h	/^	MOD,$/;"	e	enum:OPERATE_TYPE
-MOD_DATA	define.h	/^struct MOD_DATA$/;"	s
-MOD_DATA::name	define.h	/^	char name[32];$/;"	m	struct:MOD_DATA	access:public
-MOD_DATA::pass	define.h	/^	char pass[16];$/;"	m	struct:MOD_DATA	access:public
-MainLoop	MainLoop.cpp	/^MainLoop::MainLoop()$/;"	f	class:MainLoop	signature:()
-MainLoop	MainLoop.h	/^	MainLoop();$/;"	p	class:MainLoop	access:public	signature:()
+MOD_INFO	define.h	/^struct MOD_INFO$/;"	s
+MOD_INFO::name	define.h	/^	char name[32];$/;"	m	struct:MOD_INFO	access:public
+MOD_INFO::pass	define.h	/^	char pass[16];$/;"	m	struct:MOD_INFO	access:public
+MainLoop	MainLoop.h	/^	MainLoop(int thread_num,ProccessFun proccess):thread_pool(thread_num,Thread()),sock(new Csocket),proccess_fun(proccess){}$/;"	f	class:MainLoop	access:public	signature:(int thread_num,ProccessFun proccess)
 MainLoop	MainLoop.h	/^class MainLoop$/;"	c
-MainLoop::MainLoop	MainLoop.cpp	/^MainLoop::MainLoop()$/;"	f	class:MainLoop	signature:()
-MainLoop::MainLoop	MainLoop.h	/^	MainLoop();$/;"	p	class:MainLoop	access:public	signature:()
+MainLoop::MainLoop	MainLoop.h	/^	MainLoop(int thread_num,ProccessFun proccess):thread_pool(thread_num,Thread()),sock(new Csocket),proccess_fun(proccess){}$/;"	f	class:MainLoop	access:public	signature:(int thread_num,ProccessFun proccess)
 MainLoop::OnStart	MainLoop.cpp	/^bool MainLoop::OnStart()$/;"	f	class:MainLoop	signature:()
 MainLoop::OnStart	MainLoop.h	/^	bool OnStart();$/;"	p	class:MainLoop	access:public	signature:()
+MainLoop::ProccessFun	MainLoop.h	/^	typedef void (*ProccessFun)(Csocket* client_sock);$/;"	t	class:MainLoop	access:public
+MainLoop::SetThreadPool	MainLoop.cpp	/^bool MainLoop::SetThreadPool()$/;"	f	class:MainLoop	signature:()
+MainLoop::SetThreadPool	MainLoop.h	/^	bool SetThreadPool();$/;"	p	class:MainLoop	access:public	signature:()
+MainLoop::ThreadMake	MainLoop.cpp	/^void MainLoop::ThreadMake(int i)$/;"	f	class:MainLoop	signature:(int i)
+MainLoop::ThreadMake	MainLoop.h	/^	void ThreadMake(int count);$/;"	p	class:MainLoop	access:public	signature:(int count)
+MainLoop::proccess_fun	MainLoop.h	/^	ProccessFun proccess_fun;$/;"	m	class:MainLoop	access:private
 MainLoop::sock	MainLoop.h	/^	Csocket *sock;$/;"	m	class:MainLoop	access:private
+MainLoop::thread_pool	MainLoop.h	/^	std::vector<Thread>thread_pool;$/;"	m	class:MainLoop	access:private
 MainLoop::~MainLoop	MainLoop.cpp	/^MainLoop::~MainLoop()$/;"	f	class:MainLoop	signature:()
 MainLoop::~MainLoop	MainLoop.h	/^	~MainLoop();$/;"	p	class:MainLoop	access:public	signature:()
 MySQL	mysql_cpp.cpp	/^MySQL::MySQL()$/;"	f	class:MySQL	signature:()
@@ -236,7 +234,6 @@ MySQL::QueryResultSet	mysql_cpp.h	/^	mysql_data* QueryResultSet(const char* cons
 MySQL::conn_ptr	mysql_cpp.h	/^	MYSQL *conn_ptr;$/;"	m	class:MySQL	access:private
 MySQL::~MySQL	mysql_cpp.h	/^	~MySQL()$/;"	f	class:MySQL	access:public	signature:()
 NO_THIS_USER	define.h	/^	NO_THIS_USER,$/;"	e	enum:LOGIN_ERROR
-OPERATE_TYPE	define.h	/^enum OPERATE_TYPE$/;"	g
 OffLine	BaseRequest.cpp	/^bool BaseRequest::OffLine(const char* id)$/;"	f	class:BaseRequest	signature:(const char* id)
 OffLine	BaseRequest.h	/^	bool OffLine(const char* id);$/;"	p	class:BaseRequest	access:public	signature:(const char* id)
 OnAddAccount	AdmainRequest.cpp	/^bool AdmainRequest::OnAddAccount()$/;"	f	class:AdmainRequest	signature:()
@@ -265,7 +262,8 @@ OnLogin	AdmainRequest.h	/^	bool OnLogin();$/;"	p	class:AdmainRequest	access:publ
 OnLogin	BaseRequest.h	/^	virtual bool OnLogin()=0;$/;"	p	class:BaseRequest	access:public	signature:()
 OnLogin	ClientRequest.cpp	/^bool ClientRequest::OnLogin()$/;"	f	class:ClientRequest	signature:()
 OnLogin	ClientRequest.h	/^	bool OnLogin();$/;"	p	class:ClientRequest	access:public	signature:()
-OnMessage	MainLoop.cpp	/^void OnMessage(BaseRequest* user_request)$/;"	f	signature:(BaseRequest* user_request)
+OnMessage	BaseRequest.cpp	/^void OnMessage(BaseRequest * user_request)$/;"	f	signature:(BaseRequest * user_request)
+OnMessage	BaseRequest.h	/^void OnMessage(BaseRequest *user_request);$/;"	p	signature:(BaseRequest *user_request)
 OnMod	ClientRequest.cpp	/^bool ClientRequest::OnMod()$/;"	f	class:ClientRequest	signature:()
 OnMod	ClientRequest.h	/^	bool OnMod();$/;"	p	class:ClientRequest	access:public	signature:()
 OnModState	AdmainRequest.h	/^	bool OnModState();$/;"	p	class:AdmainRequest	access:public	signature:()
@@ -297,7 +295,10 @@ OnTrans	ClientRequest.h	/^	bool OnTrans();$/;"	p	class:ClientRequest	access:publ
 OnWithdrow	ClientRequest.cpp	/^bool ClientRequest::OnWithdrow()$/;"	f	class:ClientRequest	signature:()
 OnWithdrow	ClientRequest.h	/^	bool OnWithdrow();$/;"	p	class:ClientRequest	access:public	signature:()
 PASSWD_ERROR	define.h	/^	PASSWD_ERROR,$/;"	e	enum:LOGIN_ERROR
-PORT	define.h	138;"	d
+PORT	define.h	5;"	d
+ProccessFun	MainLoop.h	/^	typedef void (*ProccessFun)(Csocket* client_sock);$/;"	t	class:MainLoop	access:public
+ProccessRequest	BaseRequest.cpp	/^void ProccessRequest(Csocket* user_sock)$/;"	f	signature:(Csocket* user_sock)
+ProccessRequest	BaseRequest.h	/^void ProccessRequest(Csocket * listen_sock);$/;"	p	signature:(Csocket * listen_sock)
 QueryNoResultSet	mysql_cpp.cpp	/^bool MySQL::QueryNoResultSet(const char* const sql_sentence)$/;"	f	class:MySQL	signature:(const char* const sql_sentence)
 QueryNoResultSet	mysql_cpp.h	/^	bool QueryNoResultSet(const char* const sql_sentence);$/;"	p	class:MySQL	access:public	signature:(const char* const sql_sentence)
 QueryResultSet	mysql_cpp.cpp	/^mysql_data* MySQL::QueryResultSet(const char* const sql_sentence,int &row,int& fetch)$/;"	f	class:MySQL	signature:(const char* const sql_sentence,int &row,int& fetch)
@@ -321,6 +322,7 @@ REQ_SAVE_RECORD	define.h	/^	REQ_SAVE_RECORD,$/;"	e	enum:REQ
 REQ_SERACC	define.h	/^	REQ_SERACC,$/;"	e	enum:REQ
 REQ_SERALLCARD	define.h	/^	REQ_SERALLCARD,$/;"	e	enum:REQ
 REQ_SERCARD	define.h	/^	REQ_SERCARD,$/;"	e	enum:REQ
+REQ_SIZE	define.h	4;"	d
 REQ_TRANS	define.h	/^	REQ_TRANS,$/;"	e	enum:REQ
 REQ_TRANS_RECORD	define.h	/^	REQ_TRANS_RECORD,$/;"	e	enum:REQ
 REQ_UNFREEZE	define.h	/^	REQ_UNFREEZE,$/;"	e	enum:REQ
@@ -330,39 +332,43 @@ Receive	Csocket.cpp	/^int Csocket::Receive(void *buffer,int buflen)$/;"	f	class:
 Receive	Csocket.h	/^	int Receive(void *buffer, int buflen);$/;"	p	class:Csocket	access:public	signature:(void *buffer, int buflen)
 ReceiveFrom	Csocket.cpp	/^int Csocket::ReceiveFrom(void *buffer, int buflen, char* fromIP,UINT &fromPort)$/;"	f	class:Csocket	signature:(void *buffer, int buflen, char* fromIP,UINT &fromPort)
 ReceiveFrom	Csocket.h	/^	int ReceiveFrom(void *buffer, int buflen, char* fromIP, UINT &fromPort);$/;"	p	class:Csocket	access:public	signature:(void *buffer, int buflen, char* fromIP, UINT &fromPort)
-SAVE	define.h	/^	SAVE,$/;"	e	enum:OPERATE_TYPE
 SAVE_INFO	define.h	/^struct SAVE_INFO$/;"	s
 SAVE_INFO::id	define.h	/^	char id[16];$/;"	m	struct:SAVE_INFO	access:public
 SAVE_INFO::money	define.h	/^	char money[20];$/;"	m	struct:SAVE_INFO	access:public
-SER_DATA	define.h	/^struct SER_DATA$/;"	s
-SER_DATA::id	define.h	/^	char id[16];$/;"	m	struct:SER_DATA	access:public
-SER_DATA::name	define.h	/^	char name[16];$/;"	m	struct:SER_DATA	access:public
+SER_INFO	define.h	/^struct SER_INFO$/;"	s
+SER_INFO::id	define.h	/^	char id[16];$/;"	m	struct:SER_INFO	access:public
+SER_INFO::name	define.h	/^	char name[16];$/;"	m	struct:SER_INFO	access:public
 SOCKET	Csocket.h	/^typedef unsigned int SOCKET;$/;"	t
 SOCKET_ERROR	Csocket.h	24;"	d
 SQLOperate	BaseRequest.cpp	/^bool BaseRequest::SQLOperate(const char* sql)$/;"	f	class:BaseRequest	signature:(const char* sql)
 SQLOperate	BaseRequest.h	/^	bool SQLOperate(const char* sql);$/;"	p	class:BaseRequest	access:public	signature:(const char* sql)
-SQL_BUF	define.h	2;"	d
-SearchCardInfo	BaseRequest.cpp	/^bool BaseRequest::SearchCardInfo(const char* id,struct CARD_INFO *user_info)$/;"	f	class:BaseRequest	signature:(const char* id,struct CARD_INFO *user_info)
-SearchCardInfo	BaseRequest.h	/^	bool SearchCardInfo(const char * id,struct CARD_INFO * card_info);$/;"	p	class:BaseRequest	access:public	signature:(const char * id,struct CARD_INFO * card_info)
+SQL_BUF	define.h	3;"	d
+SearchCardInfo	BaseRequest.cpp	/^bool BaseRequest::SearchCardInfo(const char* id, CARD_INFO *user_info)$/;"	f	class:BaseRequest	signature:(const char* id, CARD_INFO *user_info)
+SearchCardInfo	BaseRequest.h	/^	bool SearchCardInfo(const char * id, CARD_INFO * card_info);$/;"	p	class:BaseRequest	access:public	signature:(const char * id, CARD_INFO * card_info)
 SearchRecordInfo	BaseRequest.cpp	/^bool BaseRequest::SearchRecordInfo(const char* id,int type,struct TRCODE_INFO * user_info)$/;"	f	class:BaseRequest	signature:(const char* id,int type,struct TRCODE_INFO * user_info)
 SearchRecordInfo	BaseRequest.h	/^	bool SearchRecordInfo(const char* id,int type,struct TRCODE_INFO  * info);$/;"	p	class:BaseRequest	access:public	signature:(const char* id,int type,struct TRCODE_INFO * info)
-Send	Csocket.cpp	/^bool Csocket::Send(void* message, int buflen)$/;"	f	class:Csocket	signature:(void* message, int buflen)
-Send	Csocket.h	/^	bool Send(void* message, int buflen);$/;"	p	class:Csocket	access:public	signature:(void* message, int buflen)
+Send	Csocket.cpp	/^size_t Csocket::Send(void* message, int buflen)$/;"	f	class:Csocket	signature:(void* message, int buflen)
+Send	Csocket.h	/^	size_t Send(void* message, int buflen);$/;"	p	class:Csocket	access:public	signature:(void* message, int buflen)
 Sendto	Csocket.cpp	/^bool Csocket::Sendto(const void *message, const char* toIP, const UINT &toPort)$/;"	f	class:Csocket	signature:(const void *message, const char* toIP, const UINT &toPort)
 Sendto	Csocket.h	/^	bool Sendto(const void *message,const char* toIP,const UINT &toPort);$/;"	p	class:Csocket	access:public	signature:(const void *message,const char* toIP,const UINT &toPort)
+SetThreadPool	MainLoop.cpp	/^bool MainLoop::SetThreadPool()$/;"	f	class:MainLoop	signature:()
+SetThreadPool	MainLoop.h	/^	bool SetThreadPool();$/;"	p	class:MainLoop	access:public	signature:()
 SetUserID	BaseRequest.h	/^	void SetUserID(const char* id){$/;"	f	class:BaseRequest	access:public	signature:(const char* id)
-TRAN	define.h	/^	TRAN=500,$/;"	e	enum:OPERATE_TYPE
-TRANS_DATA	define.h	/^struct TRANS_DATA$/;"	s
-TRANS_DATA::money	define.h	/^	char money[20];$/;"	m	struct:TRANS_DATA	access:public
-TRANS_DATA::the_other_card	define.h	/^	char the_other_card[16];$/;"	m	struct:TRANS_DATA	access:public
-TRANS_DATA::this_card	define.h	/^	char this_card[16];$/;"	m	struct:TRANS_DATA	access:public
+TRANS_INFO	define.h	/^struct TRANS_INFO$/;"	s
+TRANS_INFO::money	define.h	/^	char money[20];$/;"	m	struct:TRANS_INFO	access:public
+TRANS_INFO::the_other_card	define.h	/^	char the_other_card[16];$/;"	m	struct:TRANS_INFO	access:public
+TRANS_INFO::this_card	define.h	/^	char this_card[16];$/;"	m	struct:TRANS_INFO	access:public
 TRCODE_INFO	define.h	/^struct TRCODE_INFO$/;"	s
 TRCODE_INFO::date	define.h	/^	char date[32];$/;"	m	struct:TRCODE_INFO	access:public
 TRCODE_INFO::id	define.h	/^	char id[16];$/;"	m	struct:TRCODE_INFO	access:public
 TRCODE_INFO::money	define.h	/^	char money[20];$/;"	m	struct:TRCODE_INFO	access:public
 TRCODE_INFO::name	define.h	/^	char name[32];$/;"	m	struct:TRCODE_INFO	access:public
+Thread	MainLoop.h	/^}Thread;$/;"	t	typeref:struct:__anon1
+ThreadMake	MainLoop.cpp	/^void MainLoop::ThreadMake(int i)$/;"	f	class:MainLoop	signature:(int i)
+ThreadMake	MainLoop.h	/^	void ThreadMake(int count);$/;"	p	class:MainLoop	access:public	signature:(int count)
 UINT	Csocket.h	/^typedef unsigned int UINT;$/;"	t
 USER_TYPE	define.h	/^enum USER_TYPE$/;"	g
+USER_TYPE_SIZE	define.h	2;"	d
 UnFreezeAcc	AdmainRequest.cpp	/^bool AdmainRequest::UnFreezeAcc(const char * id)$/;"	f	class:AdmainRequest	signature:(const char * id)
 UnFreezeAcc	AdmainRequest.h	/^	bool UnFreezeAcc(const char* id);$/;"	p	class:AdmainRequest	access:public	signature:(const char* id)
 VerifyInfo	BaseRequest.cpp	/^LOGIN_ERROR BaseRequest::VerifyInfo(bool isClient,LOGIN_INFO & login_info)$/;"	f	class:BaseRequest	signature:(bool isClient,LOGIN_INFO & login_info)
@@ -372,51 +378,53 @@ _BaseRequest	BaseRequest.h	2;"	d
 _ClientRequest	ClientRequest.h	3;"	d
 _MYSQL_DATA	mysql_data.h	12;"	d
 _MainLoop	MainLoop.h	3;"	d
-_StartUserRequestServe	MainLoop.cpp	/^void  _StartUserRequestServe(void* psock)$/;"	f	signature:(void* psock)
+_StartUserRequestServer	MainLoop.cpp	/^void*  _StartUserRequestServer(void* arg)$/;"	f	signature:(void* arg)
 _WINSOCK_DEPRECATED_NO_WARNINGS	Csocket.h	6;"	d
+__anon1::thread_count	MainLoop.h	/^	long thread_count;$/;"	m	struct:__anon1	access:public
+__anon1::thread_tid	MainLoop.h	/^	pthread_t thread_tid;$/;"	m	struct:__anon1	access:public
 conn_ptr	mysql_cpp.h	/^	MYSQL *conn_ptr;$/;"	m	class:MySQL	access:private
-credit	define.h	/^	char credit[4];$/;"	m	struct:CARD_INFO	access:public
 credit	define.h	/^	char credit[4];$/;"	m	struct:CLIENT_INFO	access:public
 data_structer	mysql_data.h	/^	typedef std::vector<boost::shared_ptr<std::string> > data_structer;$/;"	t	class:mysql_data	access:public
 date	define.h	/^	char date[32];$/;"	m	struct:ADMIN_INFO	access:public
-date	define.h	/^	char date[32];$/;"	m	struct:CARD_INFO	access:public
 date	define.h	/^	char date[32];$/;"	m	struct:CLIENT_INFO	access:public
 date	define.h	/^	char date[32];$/;"	m	struct:TRCODE_INFO	access:public
 element	mysql_data.h	/^	data_structer element;$/;"	m	class:mysql_data	access:private
-id	define.h	/^	char id[16];$/;"	m	struct:CARD_INFO	access:public
 id	define.h	/^	char id[16];$/;"	m	struct:CLIENT_INFO	access:public
 id	define.h	/^	char id[16];$/;"	m	struct:LOGIN_INFO	access:public
 id	define.h	/^	char id[16];$/;"	m	struct:SAVE_INFO	access:public
-id	define.h	/^	char id[16];$/;"	m	struct:SER_DATA	access:public
+id	define.h	/^	char id[16];$/;"	m	struct:SER_INFO	access:public
 id	define.h	/^	char id[16];$/;"	m	struct:TRCODE_INFO	access:public
+isEmpty	mysql_data.h	/^	bool isEmpty()$/;"	f	class:mysql_data	access:public	signature:()
+isUser	BaseRequest.cpp	/^bool BaseRequest::isUser(bool isClient,const char* id)$/;"	f	class:BaseRequest	signature:(bool isClient,const char* id)
+isUser	BaseRequest.h	/^	bool isUser(bool isClient,const char* id);$/;"	p	class:BaseRequest	access:public	signature:(bool isClient,const char* id)
 main	main.cpp	/^int main()$/;"	f	signature:()
-money	define.h	/^	char money[20];$/;"	m	struct:CARD_INFO	access:public
+mlock	MainLoop.cpp	/^pthread_mutex_t mlock;$/;"	v
 money	define.h	/^	char money[20];$/;"	m	struct:CLIENT_INFO	access:public
 money	define.h	/^	char money[20];$/;"	m	struct:SAVE_INFO	access:public
-money	define.h	/^	char money[20];$/;"	m	struct:TRANS_DATA	access:public
+money	define.h	/^	char money[20];$/;"	m	struct:TRANS_INFO	access:public
 money	define.h	/^	char money[20];$/;"	m	struct:TRCODE_INFO	access:public
 mysql_conn	BaseRequest.h	/^	MySQL mysql_conn;$/;"	m	class:BaseRequest	access:private
 mysql_data	mysql_data.h	/^	mysql_data(){}$/;"	f	class:mysql_data	access:public	signature:()
 mysql_data	mysql_data.h	/^class mysql_data$/;"	c
 mysql_data::data_structer	mysql_data.h	/^	typedef std::vector<boost::shared_ptr<std::string> > data_structer;$/;"	t	class:mysql_data	access:public
 mysql_data::element	mysql_data.h	/^	data_structer element;$/;"	m	class:mysql_data	access:private
+mysql_data::isEmpty	mysql_data.h	/^	bool isEmpty()$/;"	f	class:mysql_data	access:public	signature:()
 mysql_data::mysql_data	mysql_data.h	/^	mysql_data(){}$/;"	f	class:mysql_data	access:public	signature:()
 mysql_data::operator []	mysql_data.h	/^	const char* operator[](int i)$/;"	f	class:mysql_data	access:public	signature:(int i)
 mysql_data::push_back	mysql_data.cpp	/^void mysql_data::push_back( char* str)$/;"	f	class:mysql_data	signature:( char* str)
 mysql_data::push_back	mysql_data.h	/^	void push_back( char* str);$/;"	p	class:mysql_data	access:public	signature:( char* str)
 mysql_data::size	mysql_data.h	/^	int size()$/;"	f	class:mysql_data	access:public	signature:()
-name	define.h	/^	char name[16];$/;"	m	struct:SER_DATA	access:public
+name	define.h	/^	char name[16];$/;"	m	struct:SER_INFO	access:public
 name	define.h	/^	char name[32];$/;"	m	struct:ADMIN_INFO	access:public
-name	define.h	/^	char name[32];$/;"	m	struct:CARD_INFO	access:public
 name	define.h	/^	char name[32];$/;"	m	struct:CLIENT_INFO	access:public
-name	define.h	/^	char name[32];$/;"	m	struct:MOD_DATA	access:public
+name	define.h	/^	char name[32];$/;"	m	struct:MOD_INFO	access:public
 name	define.h	/^	char name[32];$/;"	m	struct:TRCODE_INFO	access:public
 obj	makefile	/^obj= AdmainRequest.o ClientRequest.o BaseRequest.o Csocket.o MainLoop.cpp mysql_data.o mysql_cpp.o main.o$/;"	m
 operator =	uncopyable.h	/^	uncopyable& operator=(const uncopyable& assign){}$/;"	f	class:uncopyable	access:private	signature:(const uncopyable& assign)
 operator []	mysql_data.h	/^	const char* operator[](int i)$/;"	f	class:mysql_data	access:public	signature:(int i)
-pass	define.h	/^	char pass[16];$/;"	m	struct:CLIENT_INFO	access:public
 pass	define.h	/^	char pass[16];$/;"	m	struct:LOGIN_INFO	access:public
-pass	define.h	/^	char pass[16];$/;"	m	struct:MOD_DATA	access:public
+pass	define.h	/^	char pass[16];$/;"	m	struct:MOD_INFO	access:public
+proccess_fun	MainLoop.h	/^	ProccessFun proccess_fun;$/;"	m	class:MainLoop	access:private
 push_back	mysql_data.cpp	/^void mysql_data::push_back( char* str)$/;"	f	class:mysql_data	signature:( char* str)
 push_back	mysql_data.h	/^	void push_back( char* str);$/;"	p	class:mysql_data	access:public	signature:( char* str)
 size	mysql_data.h	/^	int size()$/;"	f	class:mysql_data	access:public	signature:()
@@ -425,10 +433,12 @@ sock	ClientRequest.h	/^	Csocket* sock;$/;"	m	class:ClientRequest	access:private
 sock	Csocket.h	/^	SOCKET sock;$/;"	m	class:Csocket	access:private
 sock	MainLoop.h	/^	Csocket *sock;$/;"	m	class:MainLoop	access:private
 socklen_t	Csocket.h	/^typedef int socklen_t;$/;"	t
-status	define.h	/^	char status[4];$/;"	m	struct:CARD_INFO	access:public
 status	define.h	/^	char status[4];$/;"	m	struct:CLIENT_INFO	access:public
-the_other_card	define.h	/^	char the_other_card[16];$/;"	m	struct:TRANS_DATA	access:public
-this_card	define.h	/^	char this_card[16];$/;"	m	struct:TRANS_DATA	access:public
+the_other_card	define.h	/^	char the_other_card[16];$/;"	m	struct:TRANS_INFO	access:public
+this_card	define.h	/^	char this_card[16];$/;"	m	struct:TRANS_INFO	access:public
+thread_count	MainLoop.h	/^	long thread_count;$/;"	m	struct:__anon1	access:public
+thread_pool	MainLoop.h	/^	std::vector<Thread>thread_pool;$/;"	m	class:MainLoop	access:private
+thread_tid	MainLoop.h	/^	pthread_t thread_tid;$/;"	m	struct:__anon1	access:public
 uncopyable	uncopyable.h	/^	uncopyable(){}$/;"	f	class:uncopyable	access:public	signature:()
 uncopyable	uncopyable.h	/^	uncopyable(const uncopyable& copy){}$/;"	f	class:uncopyable	access:private	signature:(const uncopyable& copy)
 uncopyable	uncopyable.h	/^class uncopyable$/;"	c

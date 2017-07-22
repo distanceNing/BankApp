@@ -1,73 +1,58 @@
 #include "MainLoop.h"
 
-void OnMessage(BaseRequest* user_request)
+void ProccessRequest(Csocket* user_sock)
 {
-	if(!user_request->LoadingDataBase())
-	{
-		return;
-	}
-	user_request->OnReceive();
+    int user_type = 0;
+    char str[16]={0};
+    int size=user_sock->Receive(str,USER_TYPE_SIZE);
+    user_type=atoi(str);
+    if(user_type==REQ_EXIT)
+    {
+        std::cout<<"[USER_MSG] EXIT"<<std::endl;
+        return; 
+    }
+    std::cout<<"[USER_TYPE]"<<str<<std::endl;
+    std::cout<<"[RECV_SIZE]"<<size<<std::endl;
+    char send_str[]="TYPE";
+    if (user_type == CLIENT)
+    {
+        ClientRequest event_loop(user_sock,str);
+        OnMessage(&event_loop);
+    }
+    if (user_type == ADMAIN)
+    {
+        size=user_sock->Send(send_str,USER_TYPE_SIZE);
+        std::cout<<"[SEND_SIZE]"<<size<<std::endl;
+        AdmainRequest event_loop(user_sock,str);
+        OnMessage(&event_loop);
+    }
 }
 
 
 
-
-void  _StartUserRequestServe(void* psock)
+void MainLoop::ThreadMake(int i)
 {
-	Csocket* user_sock = static_cast<Csocket*>(psock);
-	int user_type = 0;
-	char str[]="\0";
-	user_sock->Receive(&user_type,sizeof(int));
-	if (user_type == CLIENT)
-	{
-		ClientRequest event_loop(user_sock,str);
-		OnMessage(&event_loop);
-	}
-	if (user_type == ADMAIN)
-	{
-		AdmainRequest event_loop(user_sock,str);
-		OnMessage(&event_loop);
-	}
-	
+	thread_pool[i].thread_count=0;
+	pthread_create(&thread_pool[i].thread_tid,NULL,proccess_fun,&i);
+	return;
 }
 
-
-
-MainLoop::MainLoop()
+bool MainLoop::SetThreadPool()
 {
-	sock = new Csocket;
-	int flag = sock->CreatSocket(AF_INET, SOCK_STREAM, PORT);
-	if (flag == 0)
-		std::cerr<<"Creat socket error : "<<GetLastError()<<std::endl;
+	for(int i=0;i<thread_pool.size();++i)
+	{
+		ThreadMake(i);
+	}
 }
 
 bool MainLoop::OnStart()
 {
-	sock->Listen();
-	char fromIP[20];
-	UINT fromPort;
-	Csocket* user_sock;
-	while (true)
-	{
-		user_sock = new Csocket;
-		sock->Accept(*user_sock, fromIP, fromPort);
-		std::cout << "From IP: " << fromIP << "-- From Port: " << fromPort << "---Login" << std::endl;
-
-#ifdef _WIN32
-		_beginthread(_StartUserRequestServe, 0, user_sock);
-#else
-		_StartUserRequestServe(user_sock);
-		//pServe->OnLogin();
-#endif // _WIN32
-
-	}
-	return false;
+	SetThreadPool();
+	return true;
 }
 
 
 MainLoop::~MainLoop()
 {
-	delete sock;
-	sock = NULL;
 }
 

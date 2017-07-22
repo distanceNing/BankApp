@@ -104,11 +104,9 @@ bool Csocket::Accept(Csocket & socka, char * fromIP, UINT & fromPort)
 }
 
 
-bool Csocket::Send(void* message, int buflen)
+size_t Csocket::Send(void* message, int buflen)
 {
-	if (send(sock, (LPCSTR)message, buflen, 0) < 0)
-		return false;
-	return true;
+	return send(sock, (LPCSTR)message, buflen, 0) ;
 }
 
 

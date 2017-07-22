@@ -1,13 +1,15 @@
 
 #include "ClientRequest.h"
-
+#include <iostream>
 
 void ClientRequest::OnReceive()
 {
-	int ntype;
+	int ntype,size=0;
 	while (true)
 	{
-		sock->Receive(&ntype, sizeof(ntype));
+		size=sock->Receive(&ntype, sizeof(ntype));
+		std::cout<<"[RECV_SIZE] "<<size<<std::endl;
+		std::cout<<"[REQ_TYPE]  "<<ntype<<std::endl;
 		switch (ntype)
 		{
 		case REQ_LOGIN:
@@ -98,7 +100,11 @@ bool ClientRequest::OnLogin()
 	
 	error_type=VerifyInfo(true,login_info);
 	sock->Send(&error_type, sizeof(int));
-	SetUserID(login_info.id);
+	if(error_type==CHECK_SUCCESS)
+	{
+		std::cout<<"[USER_LOGIN] "<<login_info.id<<std::endl;
+		SetUserID(login_info.id);
+	}
 	return true;
 }
 bool ClientRequest::OnSearchAcc()
@@ -247,11 +253,12 @@ bool ClientRequest::OnExit()
 	memset(id,'\0',16);
 	int ret=-1;
 	sock->Receive(id,16);
-	OffLine(id);
+	if(*id!='\0')
+		OffLine(id);
 	char fromIP[20];
 	UINT fromPort;
 	sock->GetPeerName(fromIP, fromPort);
-	std::cout << "IP :" << fromIP << "Port : " << fromPort << "---Exit!" << std::endl;
+	std::cout << "IP :" << fromIP << "---  Port : " << fromPort << "---Exit!" << std::endl;
 	if(sock->CloseSocket())
 		return true;
 	return false;

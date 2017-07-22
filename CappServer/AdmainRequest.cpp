@@ -5,11 +5,14 @@
 void AdmainRequest::OnReceive()
 {
 	int ntype;
-	char str_type[4];
+	char str_type[16];
+	int size=-1;
 	while (true)
 	{
-		memset(str_type,'\0',4);
-		sock->Receive(&str_type, 2);
+		memset(str_type,'\0',16);
+		size=sock->Receive(str_type,REQ_SIZE);
+		std::cout<<"[REQ_TYPE]"<<str_type<<std::endl;
+		std::cout<<"[RECV_SIZE]"<<size<<std::endl;
 		ntype=atoi(str_type);
 		switch (ntype)
 		{
@@ -49,8 +52,22 @@ bool AdmainRequest::OnLogin()
 {
 	struct LOGIN_INFO login_info;
 	memset(&login_info,0,sizeof(struct LOGIN_INFO));
-	int error_type=VerifyInfo(false,login_info);
+	int size=sock->Receive(&login_info,sizeof(struct LOGIN_INFO));
+	
+	std::cout<<"[LOGIN_INFO]"<<login_info.id<<std::endl;
+	int error_type=-1;
+	if(!isUser(false,login_info.id))
+	{	
+		error_type=NO_THIS_USER;
+	}
+	else
+	{
+		error_type=VerifyInfo(false,login_info);
+	}
+	char send_str[16]={0};
+	snprintf(send_str,16,"%d",error_type);
 	sock->Send(&error_type,sizeof(int));
+	std::cout<<"[SEND_MSG]"<<send_str<<std::endl;
 	return true;
 }
 
