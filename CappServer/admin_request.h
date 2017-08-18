@@ -1,7 +1,7 @@
 #ifndef _BANKAPP_ADMINREQUEST_H_
 #define _BANKAPP_ADMINREQUEST_H_
 #include "base_request.h"
-#include "Csocket.h"
+#include "tcp_socket.h"
 class AdmainRequest :
 	public BaseRequest
 {
