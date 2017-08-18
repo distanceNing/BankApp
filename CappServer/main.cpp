@@ -11,7 +11,6 @@ Csocket  listen_sock;
 
 int main()
 {
-<<<<<<< HEAD
     const int thread_num=5;
     if(!listen_sock.CreatSocket(AF_INET,SOCK_STREAM,PORT))
     {
@@ -22,18 +21,6 @@ int main()
     std::cout<<"Listening----"<<std::endl;
     MainLoop main_loop(thread_num,_StartUserRequestServer);
     main_loop.OnStart();
-=======
-	const int thread_num=5;
-        if(!listen_sock.CreatSocket(AF_INET,SOCK_STREAM,PORT))
-        {
-            std::cout<<"Create Sokcet Error"<<std::endl;
-            return -1;
-        }
-	listen_sock.Listen();
-	std::cout<<"Listening----"<<std::endl;
-	MainLoop main_loop(thread_num,_StartUserRequestServer);
-	main_loop.OnStart();
->>>>>>> d6343967cd0c18d29eb7315e3a46718ab8553b91
 
     while(true)
         pause();
