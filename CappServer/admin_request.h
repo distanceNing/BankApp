@@ -1,7 +1,6 @@
-#pragma once
-#ifndef _AdmainReques
-#define _AdmainRequest
-#include "BaseRequest.h"
+#ifndef _BANKAPP_ADMINREQUEST_H_
+#define _BANKAPP_ADMINREQUEST_H_
+#include "base_request.h"
 #include "Csocket.h"
 class AdmainRequest :
 	public BaseRequest
@@ -37,7 +36,5 @@ public:
 private:
 	Csocket* sock;
 };
+#endif //!_BANKAPP_ADMINREQUEST_H_
 
-
-
-#endif //!_AdmainRequest

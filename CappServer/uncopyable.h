@@ -8,7 +8,8 @@
  *         Author:  YOUR NAME (), 
  *        Company:  
  * ************************************************************************/
-
+#ifndef _UNCOPYABLE_H_
+#define _UNCOPYABLE_H_
 class uncopyable
 {
 private:
@@ -19,4 +20,4 @@ public:
 	uncopyable(){}
 	~uncopyable(){}
 };
-
+#endif //!_UNCOPYABLE_H_

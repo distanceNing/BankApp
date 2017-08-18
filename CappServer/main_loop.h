@@ -1,15 +1,18 @@
 
-#ifndef _MainLoop
-#define _MainLoop
+#ifndef _BANKAPP_MAINLOOP_H_
+#define _BANKAPP_MAINLOOP_H_
 #include <iostream>
 #include <memory>
+#include <vector>
+
+#include <pthread.h>
+
 #include "Csocket.h"
 #include "define.h"
-#include "BaseRequest.h"
-#include "AdmainRequest.h"
-#include "ClientRequest.h"
-#include <pthread.h>
-#include <vector>
+#include "base_request.h"
+#include "client_request.h"
+#include "admin_request.h"
+
 typedef struct {
 	pthread_t thread_tid;
 	long thread_count;
@@ -35,4 +38,4 @@ private:
 
 void ProccessRequest(Csocket * listen_sock);;
 
-#endif //!_MainLoop
+#endif //!_BANKAPP_MAINLOOP_H_

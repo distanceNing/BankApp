@@ -1,12 +1,14 @@
-#pragma once
-#ifndef _ClientRequest
-#define _ClientRequest
+#ifndef _BANKAPP_CLIENTREQUEST_H_
+#define _BANKAPP_CLIENTREQUEST_H_
 
-#include "BaseRequest.h"
-#include "mysql_data.h"
-const int InitialCredit = 100;
 #include <vector>
 #include <string>
+
+#include "base_request.h"
+#include "mysql_data.h"
+#include "Csocket.h"
+
+const int InitialCredit = 100;
 
 class ClientRequest
 	:public BaseRequest
@@ -37,4 +39,5 @@ private:
 	Csocket* sock;
 };
 
-#endif // !_ClientRequest
+#endif // !_BANKAPP_CLIENTREQUEST_H_
+

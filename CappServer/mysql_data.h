@@ -8,8 +8,8 @@
  *         Author:  YOUR NAME (), 
  *        Company:  
  * ************************************************************************/
-#ifndef _MYSQL_DATA
-#define _MYSQL_DATA
+#ifndef _MYSQL_DATA_H_
+#define _MYSQL_DATA_H_
 #include <vector>
 #include <string>
 #include <memory>
@@ -41,5 +41,5 @@ public:
 private:
 	data_structer element;
 };
-#endif //!_MYSQL_DATA
+#endif //!_MYSQL_DATA_H_
 

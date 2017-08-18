@@ -1,4 +1,4 @@
-#include "MainLoop.h"
+#include "main_loop.h"
 
 void ProccessRequest(Csocket* user_sock)
 {
@@ -9,10 +9,9 @@ void ProccessRequest(Csocket* user_sock)
     if(user_type==REQ_EXIT)
     {
         std::cout<<"[USER_MSG] EXIT"<<std::endl;
-        return; 
+        return;
     }
     std::cout<<"[USER_TYPE]"<<str<<std::endl;
-    std::cout<<"[RECV_SIZE]"<<size<<std::endl;
     char send_str[]="TYPE";
     if (user_type == CLIENT)
     {
@@ -32,23 +31,23 @@ void ProccessRequest(Csocket* user_sock)
 
 void MainLoop::ThreadMake(int i)
 {
-	thread_pool[i].thread_count=0;
-	pthread_create(&thread_pool[i].thread_tid,NULL,proccess_fun,&i);
-	return;
+    thread_pool[i].thread_count=0;
+    pthread_create(&thread_pool[i].thread_tid,NULL,proccess_fun,&i);
+    return;
 }
 
 bool MainLoop::SetThreadPool()
 {
-	for(int i=0;i<thread_pool.size();++i)
-	{
-		ThreadMake(i);
-	}
+    for(int i=0;i<thread_pool.size();++i)
+    {
+        ThreadMake(i);
+    }
 }
 
 bool MainLoop::OnStart()
 {
-	SetThreadPool();
-	return true;
+    SetThreadPool();
+    return true;
 }
 
 

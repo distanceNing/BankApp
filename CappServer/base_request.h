@@ -1,5 +1,6 @@
-#ifndef _BaseRequest
-#define _BaseRequest
+#ifndef _BANKAPP_BASEREQUEST_H_
+#define _BANKAPP_BASEREQUEST_H_
+
 #include <string>
 #include <stdio.h>
 #include <iostream>
@@ -52,7 +53,6 @@ private:
 
 void OnMessage(BaseRequest *user_request);
 
+#endif //!_BANKAPP_BASEREQUEST_H_
 
-
-#endif //!_BaseRequest
 

@@ -6,10 +6,11 @@
  *       Revision:  none
  *       Compiler:  gcc
  *         Author:  YOUR NAME (), 
- *        Company:  
  * ************************************************************************/
 
-#include <mysql.h>
+#ifndef _MYSQL_CPP_H_
+#define _MYSQL_CPP_H_
+#include <mysql/mysql.h>
 #include <iostream>
 #include <string.h>
 #include "uncopyable.h"
@@ -31,5 +32,5 @@ public:
 	}
 	
 };
-
+#endif //!_MYSQL_CPP_H_
 
