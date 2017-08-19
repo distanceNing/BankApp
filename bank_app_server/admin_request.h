@@ -2,12 +2,12 @@
 #define _BANKAPP_ADMINREQUEST_H_
 #include "base_request.h"
 #include "tcp_socket.h"
-class AdmainRequest :
+class AdminRequest :
 	public BaseRequest
 {
 public:
-	AdmainRequest(Csocket* user_sock, char* id = NULL) :BaseRequest(id), sock(user_sock) {}
-	~AdmainRequest() {}
+	AdminRequest(Csocket* socket, char* id = NULL) :BaseRequest(id), socket_(socket) {}
+	~AdminRequest() {}
 	
 	void OnReceive();
 
@@ -34,7 +34,7 @@ public:
 	bool OnRefresh();
 	bool OnExit();
 private:
-	Csocket* sock;
+	Csocket* socket_;
 };
 #endif //!_BANKAPP_ADMINREQUEST_H_
 

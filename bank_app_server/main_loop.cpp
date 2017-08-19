@@ -22,7 +22,7 @@ void ProccessRequest(Csocket* user_sock)
     {
         size=user_sock->Send(send_str,USER_TYPE_SIZE);
         std::cout<<"[SEND_SIZE]"<<size<<std::endl;
-        AdmainRequest event_loop(user_sock,str);
+        AdminRequest event_loop(user_sock,str);
         OnMessage(&event_loop);
     }
 }
@@ -38,10 +38,11 @@ void MainLoop::ThreadMake(int i)
 
 bool MainLoop::SetThreadPool()
 {
-    for(int i=0;i<thread_pool.size();++i)
+    for(unsigned long i=0;i<thread_pool.size();++i)
     {
         ThreadMake(i);
     }
+    return true;
 }
 
 bool MainLoop::OnStart()

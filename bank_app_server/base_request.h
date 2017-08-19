@@ -13,7 +13,7 @@
 class BaseRequest
 {
 public:
-	BaseRequest(char* id=NULL):ID(id){}
+	BaseRequest(char* userID=NULL):userID_(userID){}
 	bool LoadingDataBase();
 
 	bool isUser(bool isClient,const char* id);
@@ -41,13 +41,19 @@ public:
 
 
 	virtual bool OnLogin()=0;
-	const char * GetUserID() { return ID.c_str(); }
-	void SetUserID(const char* id){
-		ID=id;
+
+	const char * GetUserID() 
+    {
+        return userID_.c_str(); 
+    }
+
+	void SetUserID(const char* id)
+    {
+		userID_=id;
 	}
 private:
-	std::string ID;
-	MySQL mysql_conn;
+	std::string userID_;
+	MySQL mysqlConn_;
 };
 
 

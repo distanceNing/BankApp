@@ -14,7 +14,7 @@ class ClientRequest
 	:public BaseRequest
 {
 public:
-	ClientRequest(Csocket* user_sock, char* id=NULL) :BaseRequest(id),sock(user_sock) {}
+	ClientRequest(Csocket* socket, char* id=NULL) :BaseRequest(id),socket_(socket) {}
 	~ClientRequest() {};
 	
 	void OnReceive();
@@ -36,7 +36,7 @@ public:
 	bool OnTrans();
 	bool OnExit();
 private:
-	Csocket* sock;
+	Csocket* socket_;
 };
 
 #endif // !_BANKAPP_CLIENTREQUEST_H_

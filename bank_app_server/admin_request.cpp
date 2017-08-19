@@ -2,7 +2,7 @@
 
 
 
-void AdmainRequest::OnReceive()
+void AdminRequest::OnReceive()
 {
     int ntype;
     char str_type[16];
@@ -10,7 +10,7 @@ void AdmainRequest::OnReceive()
     while (true)
     {
         memset(str_type,'\0',16);
-        size=sock->Receive(str_type,REQ_SIZE);
+        size=socket_->Receive(str_type,REQ_SIZE);
         std::cout<<"[REQ_TYPE]"<<str_type<<std::endl;
         std::cout<<"[RECV_SIZE]"<<size<<std::endl;
         ntype=atoi(str_type);
@@ -48,11 +48,11 @@ void AdmainRequest::OnReceive()
     }
 }
 
-bool AdmainRequest::OnLogin()
+bool AdminRequest::OnLogin()
 {
     struct LOGIN_INFO login_info;
     memset(&login_info,0,sizeof(struct LOGIN_INFO));
-    int size=sock->Receive(&login_info,sizeof(struct LOGIN_INFO));
+    int size=socket_->Receive(&login_info,sizeof(struct LOGIN_INFO));
 
     std::cout<<"[LOGIN_INFO]"<<login_info.id<<std::endl;
     int error_type=-1;
@@ -66,91 +66,94 @@ bool AdmainRequest::OnLogin()
     }
     char send_str[16]={0};
     snprintf(send_str,16,"%d",error_type);
-    sock->Send(&error_type,sizeof(int));
+    socket_->Send(&error_type,sizeof(int));
     std::cout<<"[SEND_MSG]"<<send_str<<std::endl;
     return true;
 }
 
-bool AdmainRequest::OnSearchAcc()
+bool AdminRequest::OnSearchAcc()
 {
     char id[16];
-    sock->Receive(id,16);
+    socket_->Receive(id,16);
     struct CLIENT_INFO client_info;
     memset(&client_info,0,sizeof(struct CLIENT_INFO));
     if(QuerySignalInfo(id,&client_info))
-
-        return false;
+        return true;
+    return false;
 }
 
-bool AdmainRequest::OnSearchCard()
+bool AdminRequest::OnSearchCard()
 {
     char id[16];
-    sock->Receive(id,16);
+    socket_->Receive(id,16);
 
+    return true;
 }
 
-bool AdmainRequest::OnDesAcc()
+bool AdminRequest::OnDesAcc()
 {
+    return true;
 
 }
 
-bool AdmainRequest::OnDesCard()
+bool AdminRequest::OnDesCard()
+{
+    return true;
+}
 
-{}
-bool AdmainRequest::ClientRequestBlockList()
+bool AdminRequest::ClientRequestBlockList()
 {
     return false;
 }
 
-bool AdmainRequest::OnAddAccount()
+bool AdminRequest::OnAddAccount()
 {
     struct LOGIN_INFO user_info;
     memset(&user_info,0,sizeof(struct LOGIN_INFO));
     int ret=-1;
-    sock->Receive(&user_info,sizeof(struct LOGIN_INFO));
+    socket_->Receive(&user_info,sizeof(struct LOGIN_INFO));
 
     if(!CreateAccount(user_info))
-
         return true;
+    return false;
 }
 
-bool AdmainRequest::OnAddCard()
+bool AdminRequest::OnAddCard()
 {
     struct LOGIN_INFO user_info;
     memset(&user_info,0,sizeof(struct LOGIN_INFO));
-    int ret=-1;
-    sock->Receive(&user_info,sizeof(struct LOGIN_INFO));
+    socket_->Receive(&user_info,sizeof(struct LOGIN_INFO));
     if(!CreateCard(user_info))
         return false;
     return true;
 }
 
 
-bool AdmainRequest::OnAdmDelete()
+bool AdminRequest::OnAdmDelete()
 {
     return false;
 }
 
-bool AdmainRequest::OnAdmRefresh()
-{
-    return false;
-}
-
-
-
-bool AdmainRequest::OnRefresh()
+bool AdminRequest::OnAdmRefresh()
 {
     return false;
 }
 
 
 
-bool AdmainRequest::OnExit()
+bool AdminRequest::OnRefresh()
 {
     return false;
 }
 
-bool AdmainRequest::FreezeAcc(const char* id)
+
+
+bool AdminRequest::OnExit()
+{
+    return false;
+}
+
+bool AdminRequest::FreezeAcc(const char* id)
 {
     char sql[64];
     memset(sql,'\0',64);
@@ -161,7 +164,7 @@ bool AdmainRequest::FreezeAcc(const char* id)
 }
 
 
-bool AdmainRequest::UnFreezeAcc(const char * id)
+bool AdminRequest::UnFreezeAcc(const char * id)
 {
     char sql[64];
     memset(sql,'\0',64);

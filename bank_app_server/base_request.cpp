@@ -16,12 +16,12 @@ void OnMessage(BaseRequest * user_request)
 
 bool BaseRequest::LoadingDataBase()
 {
-    if(!mysql_conn.InitMySQL())
+    if(!mysqlConn_.InitMySQL())
     {
         perror("Init Mysql error");
         return false;
     }
-    if(!mysql_conn.ConnectMySQL("47.93.255.194","root","","bank",0,NULL,0))
+    if(!mysqlConn_.ConnectMySQL("47.93.255.194","root","","bank",0,NULL,0))
     {
         perror("Connect Mysql error");
         return false;
@@ -38,7 +38,7 @@ bool BaseRequest::isUser(bool isClient,const char* id)
     else
         snprintf(sql,SQL_BUF," select a_no from Admin where a_no=%s",id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(!result->isEmpty())
         return false;
     return true;
@@ -52,7 +52,7 @@ bool BaseRequest::QuerySignalInfo(const char* id,struct CLIENT_INFO *user_info)
     memset(user_info,'\0',sizeof(struct CLIENT_INFO));
     snprintf(sql,SQL_BUF,"select c_name,Client.acc_no,acc_balance,acc_open_date,acc_credit,acc_status from Client,Account where Client.acc_no=Account.acc_no and Account.acc_no='%s'",id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(result->isEmpty())
         return false;
     strncpy(user_info->name,(*result)[0],32);
@@ -71,7 +71,7 @@ bool BaseRequest::SearchCardInfo(const char* id, CARD_INFO *user_info)
     memset(user_info,'\0',sizeof(CARD_INFO));
     snprintf(sql,SQL_BUF,"select card_name,card_no,card_balance,card_open_date,card_credit,card_status from Card where  card_no='%s'",id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(result->isEmpty())
         return false;
     strncpy(user_info->name,(*result)[0],32);
@@ -93,7 +93,7 @@ LOGIN_ERROR BaseRequest::VerifyInfo(bool isClient,LOGIN_INFO & login_info)
     else
         snprintf(sql,SQL_BUF," select a_passwd from Admin where a_no=%s",login_info.id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(!strcmp(login_info.pass,(*result)[0]))
         return CHECK_SUCCESS;
     return PASSWD_ERROR;
@@ -106,7 +106,7 @@ int BaseRequest::GetUserCardNum(const char* id,std::vector<std::string>&card_no)
     memset(sql,0,SQL_BUF*sizeof(char));
     snprintf(sql,SQL_BUF,"select card_no from Card where acc_no='%s'",id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     for(int i=0;i<row;i++)
     {
         card_no.push_back(std::string((*result)[i]));
@@ -131,7 +131,7 @@ int BaseRequest::GetUserRecodeNum(const char* id,int type,std::vector<std::strin
             break;
     }
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(result->isEmpty())
     {
         return 0;
@@ -161,7 +161,7 @@ bool BaseRequest::SearchRecordInfo(const char* id,int type,struct TRCODE_INFO * 
             break;
     }
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(result->isEmpty())
         return false;
     strncpy(user_info->id,(*result)[0],16);
@@ -177,13 +177,14 @@ bool BaseRequest::OnLine(const char* id)
     memset(sql,0,SQL_BUF*sizeof(char));
     snprintf(sql,SQL_BUF,"select *from LoginStatus where acc_no=%s",id);
     int row,fetch;
-    std::auto_ptr<mysql_data> result(mysql_conn.QueryResultSet(sql,row,fetch));
+    std::auto_ptr<mysql_data> result(mysqlConn_.QueryResultSet(sql,row,fetch));
     if(!result->isEmpty())
         return false;
     memset(sql,0,SQL_BUF*sizeof(char));
     snprintf(sql,SQL_BUF,"insert into LoginStatus values(%s)",id);
     if(SQLOperate(sql))
         return true;
+    return false;
 }
 bool BaseRequest::OffLine(const char* id)
 {
@@ -199,7 +200,7 @@ bool BaseRequest::OffLine(const char* id)
 
 bool BaseRequest::SQLOperate(const char* sql)
 {
-    if(mysql_conn.QueryNoResultSet(sql))
+    if(mysqlConn_.QueryNoResultSet(sql))
         return true;
     return false;
 }
@@ -231,7 +232,7 @@ bool BaseRequest::CreateCard(struct LOGIN_INFO & card_info)
     snprintf(sql,SQL_BUF,"insert into Card values('%s','%s','114001',0,now(),1,1,'yn','23'",card_info.id,card_info.pass);
     if(SQLOperate(sql))
         return true;
-
+    return false;
 }
 
 bool BaseRequest::DestoryCard(const char* id)
@@ -241,4 +242,5 @@ bool BaseRequest::DestoryCard(const char* id)
     snprintf(sql,SQL_BUF,"insert into DestoryCard(card_no,des_balance,des_date,des_operator) values('%s',0,now(),'tom');",id);
     if(SQLOperate(sql))
         return true;
+    return false;
 }
