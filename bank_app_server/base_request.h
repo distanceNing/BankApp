@@ -8,7 +8,8 @@
 
 #include "tcp_socket.h"
 #include "define.h"
-#include "mysql_cpp.h"
+#include "mysql_src/mysql_cpp.h"
+
 
 class BaseRequest
 {

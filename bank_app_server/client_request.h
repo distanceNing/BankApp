@@ -5,7 +5,6 @@
 #include <string>
 
 #include "base_request.h"
-#include "mysql_data.h"
 #include "tcp_socket.h"
 
 const int InitialCredit = 100;

@@ -1,6 +1,7 @@
-#### bank_app:
+#### BankApp:
     一个简单的银行管理系统。
-BankApp：用MFC写的客户端程序。
+#### bank_app:
+     :用MFC写的客户端程序。
 
 #### bank_app_server：为服务器程序。
 
