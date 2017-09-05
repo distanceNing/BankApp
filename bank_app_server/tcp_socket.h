@@ -1,8 +1,6 @@
-#pragma once
-#ifndef _CSCOKET
-
+#ifndef _CSOCKET_H_
+#define _CSOCKET_H_
 #ifdef _WIN32
-
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <WinSock2.h>
 #pragma comment (lib,"ws2_32.lib")
@@ -44,4 +42,4 @@ public:
 	bool Connect(char* conIP, UINT &conPort);
 	bool CloseSocket();
 };
-#endif // !_CSCOKET
+#endif // !_COSOCKET_H_

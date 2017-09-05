@@ -19,10 +19,12 @@ class MainWindow : public QMainWindow
 
 public slots:
     void showClientDlg();
-
+    void hideDlg();
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+
 
 private:
     Ui::MainWindow *ui;

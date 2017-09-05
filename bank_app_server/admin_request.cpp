@@ -110,7 +110,6 @@ bool AdminRequest::OnAddAccount()
 {
     struct LOGIN_INFO user_info;
     memset(&user_info,0,sizeof(struct LOGIN_INFO));
-    int ret=-1;
     socket_->Receive(&user_info,sizeof(struct LOGIN_INFO));
 
     if(!CreateAccount(user_info))

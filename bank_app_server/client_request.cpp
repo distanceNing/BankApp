@@ -8,8 +8,7 @@ void ClientRequest::OnReceive()
     while (true)
     {
         size=socket_->Receive(&ntype, sizeof(ntype));
-        std::cout<<"[RECV_SIZE] "<<size<<std::endl;
-        std::cout<<"[REQ_TYPE]  "<<ntype<<std::endl;
+        std::cout<<this->GetUserID()<<"--[REQ]"<<ntype<<std::endl;
         switch (ntype)
         {
             case REQ_LOGIN:

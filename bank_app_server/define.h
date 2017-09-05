@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _BANKAPP_DEFINE_H_
+#define _BANKAPP_DEFINE_H_
 #define USER_TYPE_SIZE 4
 #define SQL_BUF 512
 #define REQ_SIZE 2
@@ -11,7 +12,6 @@ enum ACCOUNT_STATE
 	ACCOUNT_STATE_AVAILABLE = 1,
 	ACCOUNT_STATE_UNAVAILABLE = 0
 };
-
 
 
 struct LOGIN_INFO
@@ -150,4 +150,4 @@ enum REQ
 
 
 
-
+#endif//!_BANKAPP_DEFINE_H_

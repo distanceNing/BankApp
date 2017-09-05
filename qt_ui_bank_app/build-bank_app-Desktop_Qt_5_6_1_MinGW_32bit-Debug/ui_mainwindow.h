@@ -44,7 +44,9 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(492, 400);
+        MainWindow->resize(506, 407);
+        MainWindow->setMinimumSize(QSize(506, 407));
+        MainWindow->setMaximumSize(QSize(506, 407));
         QFont font;
         font.setFamily(QStringLiteral("Consolas"));
         font.setPointSize(11);
@@ -55,7 +57,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         view = new QLabel(centralWidget);
         view->setObjectName(QStringLiteral("view"));
-        view->setGeometry(QRect(50, 20, 371, 111));
+        view->setGeometry(QRect(60, 20, 371, 111));
         id = new QLabel(centralWidget);
         id->setObjectName(QStringLiteral("id"));
         id->setGeometry(QRect(90, 170, 51, 20));
@@ -75,7 +77,7 @@ public:
         ok->setFont(font1);
         cancel = new QPushButton(centralWidget);
         cancel->setObjectName(QStringLiteral("cancel"));
-        cancel->setGeometry(QRect(290, 300, 75, 23));
+        cancel->setGeometry(QRect(300, 300, 75, 23));
         cancel->setFont(font1);
         user_id = new QLineEdit(centralWidget);
         user_id->setObjectName(QStringLiteral("user_id"));
@@ -83,10 +85,11 @@ public:
         user_passwd = new QLineEdit(centralWidget);
         user_passwd->setObjectName(QStringLiteral("user_passwd"));
         user_passwd->setGeometry(QRect(170, 220, 201, 31));
+        user_passwd->setEchoMode(QLineEdit::Password);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 492, 24));
+        menuBar->setGeometry(QRect(0, 0, 506, 23));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

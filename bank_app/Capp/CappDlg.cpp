@@ -48,7 +48,7 @@ BOOL CCappDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	theApp.sock.CreatSocket();
-	int flag = theApp.sock.Connect("192.168.0.110", PORT);//10.100.7.202 
+	int flag = theApp.sock.Connect("192.168.44.128", PORT);//10.100.7.202 
 	if (flag == 0)
 	{
 		MessageBox(L"服务器连接失败", L"温馨提示", MB_OK);

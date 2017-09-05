@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
-    <height>400</height>
+    <width>506</width>
+    <height>407</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>506</width>
+    <height>407</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>506</width>
+    <height>407</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -25,7 +37,7 @@
    <widget class="QLabel" name="view">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>20</y>
       <width>371</width>
       <height>111</height>
@@ -101,7 +113,7 @@
    <widget class="QPushButton" name="cancel">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>300</x>
       <y>300</y>
       <width>75</width>
       <height>23</height>
@@ -138,6 +150,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -145,8 +160,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>492</width>
-     <height>24</height>
+     <width>506</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>

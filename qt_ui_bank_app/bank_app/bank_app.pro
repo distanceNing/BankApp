@@ -14,12 +14,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    clientdlg.cpp
+    clientdlg.cpp \
+    pageoperate.cpp
 
 HEADERS  += mainwindow.h \
-    clientdlg.h
+    clientdlg.h \
+    pageoperate.h
 
 FORMS    += mainwindow.ui \
-    clientdlg.ui
+    clientdlg.ui \
+    pageoperate.ui
 
-RC_ICONS = icon.ico
+RC_ICONS =images/icon.ico
+
+DISTFILES +=
+
+RESOURCES += \
+    myimage.qrc

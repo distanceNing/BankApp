@@ -5,11 +5,15 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
-
+#include <map>
 #include "tcp_socket.h"
 #include "define.h"
 #include "mysql_src/mysql_cpp.h"
 
+
+
+
+static std::map<int,std::string> kRequest{(REQ_EXIT,"REQ_EXIT"),(REQ_SAVE,"REQ_SAVE")};
 
 class BaseRequest
 {
@@ -43,14 +47,14 @@ public:
 
 	virtual bool OnLogin()=0;
 
-	const char * GetUserID() 
+	const std::string & GetUserID() 
     {
-        return userID_.c_str(); 
+        return userID_; 
     }
 
-	void SetUserID(const char* id)
+	void SetUserID(const char* userID)
     {
-		userID_=id;
+		userID_=userID;
 	}
 private:
 	std::string userID_;
