@@ -13,7 +13,7 @@
 
 
 
-static std::map<int,std::string> kRequest{(REQ_EXIT,"REQ_EXIT"),(REQ_SAVE,"REQ_SAVE")};
+//static std::map<int,std::string> kRequest{(REQ_EXIT,"REQ_EXIT"),(REQ_SAVE,"REQ_SAVE")};
 
 class BaseRequest
 {
@@ -47,13 +47,13 @@ public:
 
 	virtual bool OnLogin()=0;
 
-	const std::string & GetUserID() 
-    {
-        return userID_; 
-    }
+	const std::string & GetUserID()
+	{
+		return userID_;
+	}
 
 	void SetUserID(const char* userID)
-    {
+	{
 		userID_=userID;
 	}
 private:

@@ -1,7 +1,7 @@
 #### BankApp:
     一个简单的银行管理系统。
-#### ban_kApp：
-    MFC写的客户端程序。
+#### bank_app：
+    MFC客户端程序。
 #### qt_ui_bank_app
     用QT代替MFC程序，简单好用，界面友好。
 #### bank_app_server：

@@ -17,6 +17,7 @@ void ProccessRequest(Csocket* user_sock)
     {
         ClientRequest event_loop(user_sock,str);
         OnMessage(&event_loop);
+        return;
     }
     if (user_type == ADMAIN)
     {
